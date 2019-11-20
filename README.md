@@ -11,7 +11,7 @@ Trained by [CEW](http://parnec.nuaa.edu.cn/xtan/data/ClosedEyeDatabases.html) da
 * Accuracy : 96.7%
 
 Here is the result of sample image.  
-| Probability | Guided Backprop | Grad-Cam | Guided Grad-Cam
+| Image | Open Probability | Guided Backprop | Grad-Cam | Guided Grad-Cam
 
 <img src="./test/guided_gradcam.jpg">
 
@@ -25,5 +25,5 @@ python check.py  #check.py supports cpu only
 
 ## Reference
 
-* [pytorch-facial-expression-recognition](https://github.com/yoshidan/pytorch-facial-expression-recgnition)
+* [pytorch-facial-expression-recognition](https://github.com/yoshidan/pytorch-facial-expression-recognition)
 
