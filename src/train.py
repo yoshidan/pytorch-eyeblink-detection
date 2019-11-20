@@ -37,26 +37,15 @@ class DataSetFactory:
         images = []
         labels = []
 
-        files = list(map(lambda x: {'file': x, 'label':1}, glob.glob('../../../../Downloads/dataset_B_Eye_Images/openRightEyes/*.jpg')))
-        files.extend(list(map(lambda x: {'file': x, 'label':1}, glob.glob('../../../../Downloads/dataset_B_Eye_Images/openLeftEyes/*.jpg'))))
-        files.extend(list(map(lambda x: {'file': x, 'label':1}, glob.glob('../../../../Downloads/dataset_B_Eye_Images/closedLeftEyes/*.jpg'))))
-        files.extend(list(map(lambda x: {'file': x, 'label':1}, glob.glob('../../../../Downloads/dataset_B_Eye_Images/closedRightEyes/*.jpg'))))
+        files = list(map(lambda x: {'file': x, 'label':1}, glob.glob('../dataset/dataset_B_Eye_Images/openRightEyes/*.jpg')))
+        files.extend(list(map(lambda x: {'file': x, 'label':1}, glob.glob('../dataset/dataset_B_Eye_Images/openLeftEyes/*.jpg'))))
+        files.extend(list(map(lambda x: {'file': x, 'label':0}, glob.glob('../dataset/dataset_B_Eye_Images/closedLeftEyes/*.jpg'))))
+        files.extend(list(map(lambda x: {'file': x, 'label':0}, glob.glob('../dataset/dataset_B_Eye_Images/closedRightEyes/*.jpg'))))
         random.shuffle(files)
         for file in files:
             img = cv2.imread(file['file'])
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-            for (x, y, w, h) in faces:
-                face = gray[y:y + h, x:x + w]
-                eyes = eye_cascade.detectMultiScale(face)
-                eyes = sorted(eyes, key=lambda x: x[0])
-                if len(eyes) == 2:
-                    eye = resize(face, eyes[0])
-                    images.append(eye)
-                    labels.append(file['label'])
-                    eye = resize(face, eyes[1])
-                    images.append(eye)
-                    labels.append(file['label'])
+            images.append(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY))
+            labels.append(file['label'])
 
         validation_length = int(len(images) * validation_ratio)
         validation_images = images[:validation_length]
@@ -99,7 +88,7 @@ class DataSet(torch.utils.data.Dataset):
 def main():
     # variables  -------------
     batch_size = 64
-    lr = 0.0001
+    lr = 0.001
     epochs = 40
     # ------------------------
 
@@ -114,7 +103,6 @@ def main():
     criterion = nn.CrossEntropyLoss()
 
     min_validation_loss = 10000
-
     for epoch in range(epochs):
         network.train()
         total = 0
