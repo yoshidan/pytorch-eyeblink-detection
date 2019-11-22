@@ -8,7 +8,8 @@ Simple Eye Blink Detection with CNN
 
 Trained by [CEW](http://parnec.nuaa.edu.cn/xtan/data/ClosedEyeDatabases.html) dataset.
 
-* Accuracy : 96.7%
+* Validation Accuracy : 96.7%
+* Validation Loss : 0.1256
 
 Here is the result of sample image.  
 | Image | Open Probability | Guided Backprop | Grad-Cam | Guided Grad-Cam
